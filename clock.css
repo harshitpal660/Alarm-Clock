@@ -1,0 +1,102 @@
+/* css rule for body of webpage */
+body,html{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(36, 56, 110);
+}
+
+/* css for container which containe our alarm clock*/
+.container{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* css for digital clock */
+#clock{
+    font-family: 'Orbitron', sans-serif;
+    font-size: 15vw;
+    background-image: linear-gradient(
+        180deg,
+        rgb(243 207 30) 0%,
+        rgb(183 172 39) 50%,
+        rgb(120 118 40) 100%
+    );
+    background-clip: text;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+/* css for input box for setting alarm */
+input{
+    border: 2px solid whitesmoke;
+    border-radius: 4px;
+    display: block;
+    font-size: 14px;
+    padding: 10px 15px;
+}
+
+/* ṭhis is a div which contain 3 buttons set Alarm, clear alarm and all alarm */
+.controls{
+    margin-top: 16px;
+}
+
+/* this is class is provide to all 3 button general rule for all button in our app */
+.button{
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    color: white;
+    
+    padding: 8px 20px;
+    margin-left: 4px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+/* set alarm button specfic rule */
+.set-alarm{
+    background-color: green;
+}
+/* clear alarm button specific rule */
+.clear-alarm{
+    background-color: red;
+}
+/* all alarm button specific rule */
+.all-alarm{
+    background-color: black;
+}
+
+/* list is a div which contain all the alarms set by user */
+#list {
+    display: none;
+    background: rgb(36, 56, 110);
+    height: fit-content;
+    width: 200px;
+    color: white;
+}
+
+/* these list items contains the timings when the bell rang */
+li{
+    list-style-type: none;
+    text-align: center;
+    font-size: larger;
+    font-style: oblique;
+    font-weight: 500;
+}
+
+/* display for date and day */
+#display{
+    margin-bottom: 20px;
+
+}
+
+h3 ,h5{
+    margin: 0;
+    color: rgb(183 172 39);
+   
+}

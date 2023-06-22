@@ -1,0 +1,39 @@
+<html>
+    <head>
+        <title>Alarm Clock</title>
+        <link href="clock.css" rel="stylesheet">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Orbitron&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <!-- container which contain our app -->
+        <div class="container">
+            
+            <!-- digital clock will be displayed here -->
+            <div id="clock">
+            </div>
+            <!-- container to show date and day -->
+            <div id = "display">
+                <h3 class="date"></h3>
+                <h5 class="day"></h4>
+            </div>
+            <!-- input box to set alarm -->
+            <input type="datetime-local" name="alarmType" />
+            
+            <!-- buttons to set, clear and watch all alarm -->
+            <div class="controls">
+                <button class="button set-alarm" onclick="setAlarm()">Set Alarm</button>
+                <button class="button clear-alarm" onclick="clearAlarm()">Clear Alarm</button>
+                <button class="button all-alarm" onclick="showAlarms()">All Alarms</button>
+            </div>
+
+            <!-- list which contain all alarms -->
+            <div id="list">
+                <ul>
+                </ul>
+            </div>
+        </div>
+          <script src="clock.js"></script>
+    </body>
+</html>
