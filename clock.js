@@ -4,9 +4,6 @@
     let DisplayAnalog = document.getElementById("analogClock");
     let DisplayDigital = document.getElementById("digitalClock");
 
-    // used to display date and day
-    let DisplayDate = document.getElementsByClassName("date")[0];
-    let DisplayDay = document.getElementsByClassName("day")[0];
 
     // Select buttons
     let selectAnalog = document.getElementById("selectAnalog");
@@ -26,6 +23,7 @@
         if(DisplayAnalog.style.display == ""){
             DisplayAnalog.style.display = "block";
             DisplayDigital.style.display = "";
+
         }
     }
 
@@ -45,8 +43,6 @@
     function updateTime(){
         // logic for digital clock
         DisplayDigital.innerText = getCurrTime();
-        DisplayDate.innerText = getCurrDate();
-        DisplayDay.innerText = getCurrDay();
 
         // logic for analog clock
         let sec = parseInt(DisplayDigital.innerText.slice(6,8)) * 6;
@@ -74,20 +70,7 @@
 
         return hour+":"+min+":"+sec;
     }
-    function getCurrDate(){   
-        const date = new Date();
-        const yy = formateTime(date.getFullYear());
-        const mm = formateTime(date.getMonth());
-        const dd = formateTime(date.getDate());
 
-        return dd+"-"+mm+"-"+yy;
-    }
-    function getCurrDay(){
-        const day = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"];
-        const date = new Date();
-        const d = formateTime(date.getDay());
-        return day[d-1];
-    }
 
     // function to format time so that it will be in general format of hh:mm:ss
     function formateTime(time){
