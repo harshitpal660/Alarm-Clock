@@ -1,11 +1,17 @@
 // step 1 - Define some basic variables
 
-    // used to display digital clock
-    let Display = document.getElementById("clock");
+    // used to display clock(Digital/Analog)
+    let DisplayAnalog = document.getElementById("analogClock");
+    let DisplayDigital = document.getElementById("digitalClock");
 
-    // 
-    let Display2 = document.getElementsByClassName("date")[0];
-    let Display3 = document.getElementsByClassName("day")[0];
+    // used to display date and day
+    let DisplayDate = document.getElementsByClassName("date")[0];
+    let DisplayDay = document.getElementsByClassName("day")[0];
+
+    // Select buttons
+    let selectAnalog = document.getElementById("selectAnalog");
+    let selectDigital = document.getElementById("selectDigital");
+    
     // audio file for alarm
     const audio = new Audio("audio.mp3");
     audio.loop = true;
@@ -14,64 +20,49 @@
     // variable to store alarm time so that whenever curr time reaches this time bell rang
     let alarmTime = [];
 // --------------------------------------------------------------------------------------------------
+    // choosing the clock type
+    function switchToAnalog(){
+        console.log(DisplayAnalog.style.display);
+        if(DisplayAnalog.style.display == ""){
+            DisplayAnalog.style.display = "block";
+            DisplayDigital.style.display = "";
+        }
+    }
+
+    function switchToDigital(){
+        if(DisplayDigital.style.display == ""){
+            DisplayAnalog.style.display = "";
+            DisplayDigital.style.display = "block";
+        }
+    }
+
 
 // step 2 - Display the Clock
 
+    // setting inteval of 1 sec so that our digital clock displayed in real time 
+    setInterval(updateTime,1000);
+
     function updateTime(){
+        // logic for digital clock
+        DisplayDigital.innerText = getCurrTime();
+        DisplayDate.innerText = getCurrDate();
+        DisplayDay.innerText = getCurrDay();
 
-        Display.innerText = getCurrTime();
-        Display2.innerText = getCurrDate();
-        Display3.innerText = getCurrDay();
-
+        // logic for analog clock
+        let sec = parseInt(DisplayDigital.innerText.slice(6,8)) * 6;
+        let min = parseInt(DisplayDigital.innerText.slice(3,5)) * 6;
+        let hr = parseInt(DisplayDigital.innerText.slice(0,2)) * 30 + Math.round(min/12);
+        document.getElementById("sec-hand").style.transform = "rotate("+sec +"deg)";
+        document.getElementById("min-hand").style.transform = "rotate("+min +"deg)";
+        document.getElementById("hr-hand").style.transform = "rotate("+hr +"deg)";
         // condition to play audio
         for(let t of alarmTime){
-            if(Display.innerText == t){
+            if(DisplayDigital.innerText == t){
                 audio.play();
             }
         }
-        
 
-    }
-    // function to format time so that it will be in general format of hh:mm:ss
-    function formateTime(time){
-        if(time<10) {
-            return '0'+time;
-        }
-        return time;
-    }
 
-    // setting inteval of 1 sec so that our digital clock displayed in real time 
-    setInterval(updateTime,1000);
-// -------------------------------------------------------------------------------------------------------------------
-
-// step 3 - Set the Alarm
-    function setAlarm(){
-        // input variable store the string/time given by user 
-        let input = document.getElementsByTagName("input")[0];
-        // if the user try to set time without providing input value it will create a alert
-        if(input.value == ""){
-            window.alert("Provide Time");
-        }else{
-            let currTime = getCurrTime();
-            // if user try to set alarm for past time then it will show an alert
-            if(currTime>input.value.slice(-5)+": 00"){
-                window.alert("can't set alarm for past");
-                return;
-            }
-            alarmTime.push(input.value.slice(-5)+": 00");
-
-                
-            // createElement() is used for
-            // creating a new element
-            let type = document.createElement('li');
-
-            // providing text to created element
-            type.appendChild(document.createTextNode(input.value.slice(-5)+":00"));
-            
-            // apending cihld to alarm list
-            document.getElementsByTagName("ul")[0].appendChild(type);
-            window.alert("Alarm set for : "+input.value.slice(-5)+": 00");
-        }
     }
 
     // function to get the curr time at the moment
@@ -97,10 +88,45 @@
         const d = formateTime(date.getDay());
         return day[d-1];
     }
+
+    // function to format time so that it will be in general format of hh:mm:ss
+    function formateTime(time){
+        if(time<10) {
+            return '0'+time;
+        }
+        return time;
+    }
+
+    
+// -------------------------------------------------------------------------------------------------------------------
+
+// step 3 - Set the Alarm
+    function setAlarm(){
+        // input variable store the string/time given by user 
+        let input = document.getElementsByTagName("input")[0].value.slice(-5)+":00";
+        // if the user try to set time without providing input value it will create a alert
+        if(input == ":00"){
+            window.alert("Provide Time");
+        }else{
+            alarmTime.push(input);
+ 
+            // createElement() is used for
+            // creating a new element
+            let type = document.createElement('li');
+
+            // providing text to created element
+            type.appendChild(document.createTextNode(input));
+            
+            // apending cihld to alarm list
+            document.getElementsByTagName("ul")[0].appendChild(type);
+            window.alert("Alarm set for : "+input);
+        }
+    }
+
 // ----------------------------------------------------------------------------------------------------------------------------
 
 // step 4 - Clear the Alarm
-    function clearAlarm(){
+    function stopAlarm(){
         audio.pause(); 
     }
 // ----------------------------------------------------------------------------------------------------------------------------
